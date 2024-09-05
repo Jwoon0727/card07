@@ -15,9 +15,9 @@ export default function Home() {
         />
         <ol>
           <li>
-            asfassfsdf Get started by editing sfsdjfj <code>app/page.js</code>.
+            abc <code>app/page.js</code>.
           </li>
-          <li>Save and see your changes instantly.</li>
+          <li>123.</li>
         </ol>
 
         <div className={styles.ctas}>
