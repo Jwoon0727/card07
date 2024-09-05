@@ -4,16 +4,52 @@ import withPWA from 'next-pwa';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: true,      // Enable React strict mode for improved error handling
-    swcMinify: true,            // Enable SWC minification for improved performance
+    reactStrictMode: true,
+    swcMinify: true,
     compiler: {
-        removeConsole: process.env.NODE_ENV !== "development"     // Remove console.log in production
+        removeConsole: process.env.NODE_ENV !== "development"
+    },
+    pwa: {
+        dest: "public",
+        disable: process.env.NODE_ENV === "development",
+        register: true,
+        skipWaiting: true,
+        runtimeCaching: [
+            {
+                urlPattern: /^https:\/\/.*\.(?:png|jpg|jpeg|svg|gif)$/i,
+                handler: 'CacheFirst',
+                options: {
+                    cacheName: 'image-cache',
+                    expiration: {
+                        maxEntries: 60,
+                        maxAgeSeconds: 30 * 24 * 60 * 60,  // 30일
+                    },
+                },
+            },
+            {
+                urlPattern: /^https:\/\/your-api-url\/.*/i,
+                handler: 'NetworkFirst',
+                options: {
+                    cacheName: 'api-cache',
+                    expiration: {
+                        maxEntries: 50,
+                        maxAgeSeconds: 24 * 60 * 60,  // 1일
+                    },
+                },
+            },
+            {
+                urlPattern: /.*/,
+                handler: 'NetworkFirst',
+                options: {
+                    cacheName: 'default-cache',
+                    expiration: {
+                        maxEntries: 100,
+                        maxAgeSeconds: 24 * 60 * 60,  // 1일
+                    },
+                },
+            },
+        ],
     }
 };
 
-export default withPWA({
-    dest: "public",         // destination directory for the PWA files
-    disable: process.env.NODE_ENV === "development",        // disable PWA in the development environment
-    register: true,         // register the PWA service worker
-    skipWaiting: true,      // skip waiting for service worker activation
-})(nextConfig);
+export default nextConfig;
