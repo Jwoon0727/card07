@@ -15,7 +15,7 @@ export default function Home() {
         />
         <ol>
           <li>
-            Get started by editing <code>app/page.js</code>.
+            asfassfsdf Get started by editing sfsdjfj <code>app/page.js</code>.
           </li>
           <li>Save and see your changes instantly.</li>
         </ol>
@@ -73,7 +73,7 @@ export default function Home() {
             width={16}
             height={16}
           />
-          Examples
+          Examplessfdfsd
         </a>
         <a
           href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
