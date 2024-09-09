@@ -1,4 +1,6 @@
+// app/layout.js
 import { Inter } from "next/font/google";
+import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS 추가
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,7 +23,7 @@ export const metadata = {
   icons: [
     { rel: "apple-touch-icon", url: "icons/logo192.png" },
     { rel: "icon", url: "icons/logo192.png" },
-    { rel: "icon", url: "/icons/logo192.png", sizes: "512x512" } 
+    { rel: "icon", url: "/icons/logo192.png", sizes: "512x512" },
   ],
 };
 
