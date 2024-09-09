@@ -4,7 +4,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "PWA NextJS",
+  title: "구역카드",
   description: "It's a simple progressive web application made with NextJS",
   generator: "Next.js",
   manifest: "/manifest.json",
@@ -21,6 +21,7 @@ export const metadata = {
   icons: [
     { rel: "apple-touch-icon", url: "icons/logo192.png" },
     { rel: "icon", url: "icons/logo192.png" },
+    { rel: "icon", url: "/icons/logo192.png", sizes: "512x512" } 
   ],
 };
 
