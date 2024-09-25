@@ -8,9 +8,7 @@ export default function Home() {
   return (
     <div>
       <ClientNavbar />
-
       {/* Kakao 지도 */}
-      
       <KakaoMap />
     </div>
   );

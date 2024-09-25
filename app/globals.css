@@ -7,5 +7,53 @@ html, body {
   }
 
   #map {
-    
+
+  }
+
+
+  .map_wrap {
+    position: relative;
+    width: 100%;
+    height: 350px;
+}
+
+.title {
+    font-weight: bold;
+    display: block;
+}
+
+.hAddr {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 1;
+    padding: 5px;
+}
+
+#centerAddr {
+    display: block;
+    margin-top: 2px;
+    font-weight: normal;
+}
+
+.bAddr {
+    padding: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.close-btn {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .close-btn:hover {
+    background-color: #ff4500;
   }
