@@ -12,6 +12,7 @@ export default function ClientNavbar() {
           <Nav className="me-auto">
             <Nav.Link href="#home">로그인</Nav.Link>
             <Nav.Link href="/map">지도</Nav.Link>
+            <Nav.Link href="/userlist">유저</Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">상세페이지</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
