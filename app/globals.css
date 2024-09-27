@@ -93,3 +93,30 @@ html, body {
   .logout-btn:hover {
     background-color: #005bb5; /* 마우스 오버 시 배경색 변화 */
   }
+
+
+  .modal {
+    display: block; 
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(204, 47, 47, 0.5);
+  }
+  
+  .modal-open {
+    background-color: rgb(213, 76, 76);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #9d3333;
+    width: 80%;
+    z-index: 999;
+  }
+  
+  .close-button {
+    cursor: pointer;
+  }
+
+  
