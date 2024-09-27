@@ -37,7 +37,7 @@ export const authOptions = {
         const userName = user.name; // 여기서 변수에 저장
         
         // 필요에 따라 user 객체를 수정하여 반환
-        return { ...user, name: userName }; // 또는 단순히 user를 반환할 수 있습니다.
+        return { id: user._id, name: user.name, email: user.email }; // 또는 단순히 user를 반환할 수 있습니다.
         }
       })
     ],
@@ -50,24 +50,30 @@ export const authOptions = {
   
   
     callbacks: {
-      //4. jwt 만들 때 실행되는 코드 
-      //user변수는 DB의 유저정보담겨있고 token.user에 뭐 저장하면 jwt에 들어갑니다.
-      jwt: async ({ token, user }) => {
-        if (user) {
-          token.user = {};
-          token.user.name = user.name
-          token.user.email = user.email
-        }
-        return token;
+        // jwt 콜백에 추가된 로그
+jwt: async ({ token, user }) => {
+    if (user) {
+      token.user = {
+        id: user.id,
+        name: user.name,
+        email: user.email
+      };
+    }
+    console.log('JWT Token:', token); // 로그 추가
+    return token;
+  },
+  
+  // session 콜백에 추가된 로그
+  session: async ({ session, token }) => {
+    session.user = token.user;  
+    console.log('Session Data:', session); // 로그 추가
+    return session;
+  },
       },
-      //5. 유저 세션이 조회될 때 마다 실행되는 코드
-      session: async ({ session, token }) => {
-        session.user = token.user;  
-        return session;
-      },
-    },
   
   secret : 'jworg9914#',
   adapter : MongoDBAdapter(connectDB)
 };
 export default NextAuth(authOptions); 
+
+
