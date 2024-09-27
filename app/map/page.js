@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from 'react';
+import ClientNavbar from '../components/ClientNavbar';
 
 const KakaoMap = () => {
   const mapRef = useRef(null);
@@ -114,12 +115,15 @@ const KakaoMap = () => {
   };
 
   return (
+    <div>
+        <ClientNavbar/>
     <div style={{ width: '100%', height: '50vh', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
       <div id="map" style={{ width: '100%', height: '100%', backgroundColor: 'lightgray' }}></div>
       <div className="hAddr" style={{ position: 'absolute', left: '10px', top: '10px', borderRadius: '2px', background: 'rgba(255,255,255,0.8)', zIndex: 1, padding: '5px' }}>
         <span className="title">지도중심기준 행정동 주소정보</span>
         <span id="centerAddr"></span>
       </div>
+    </div>
     </div>
   );
 };
