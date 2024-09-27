@@ -9,7 +9,9 @@ export default function Home() {
     <div>
       <ClientNavbar />
       {/* Kakao 지도 */}
-      <KakaoMap />
+      {/* <KakaoMap /> */}
+
+    <h1>안녕하세요.</h1>
     </div>
   );
 }
