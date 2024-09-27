@@ -16,9 +16,9 @@ export async function middleware(request) {
   }
 
   // 전도인 역할 확인
-  if (token && token.user.role === '0' && pathname === '/userlist') {
-    return NextResponse.redirect(new URL('/map-denied', request.url)); // "/map-denied" 페이지로 리다이렉트
-  }
+//   if (token && token.user.role === '0' && pathname === '/userlist') {
+//     return NextResponse.redirect(new URL('/map-denied', request.url)); // "/map-denied" 페이지로 리다이렉트
+//   }
 
   return NextResponse.next();
 }
