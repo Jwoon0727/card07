@@ -2,6 +2,8 @@
 import { Inter } from "next/font/google";
 import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS 추가
 import "./globals.css";
+import SessionProviderWrapper from './SessionProviderWrapper'; // 세션 프로바이더 임포트
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,7 +32,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+     <body>  <SessionProviderWrapper>{children}</SessionProviderWrapper></body>
     </html>
   );
 }
