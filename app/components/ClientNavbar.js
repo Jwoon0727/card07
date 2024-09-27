@@ -13,7 +13,7 @@ export default function ClientNavbar() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="/">구역카드123</Navbar.Brand>
+        <Navbar.Brand href="/">구역카드</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
@@ -26,7 +26,7 @@ export default function ClientNavbar() {
           ) : (
             <>
               <LoginBtn/>
-              <Link href="/Registerr">
+              <Link href="/register">
                 <Button variant="outline-primary" className="ms-2">회원가입</Button> {/* 회원가입 버튼 추가 */}
               </Link>
             </>
@@ -34,7 +34,7 @@ export default function ClientNavbar() {
         }
             <Nav.Link href="/map">지도</Nav.Link>
             <Nav.Link href="/userlist">유저</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+            <NavDropdown title="더보기" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">상세페이지</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
