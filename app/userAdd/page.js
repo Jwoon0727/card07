@@ -1,36 +1,32 @@
 'use client'; // 클라이언트 컴포넌트로 설정
 import { useState, useEffect } from 'react';
-import { signOut } from 'next-auth/react'; // NextAuth에서 signOut 가져오기
 
 export default function UserAdd() {
     const [name, setName] = useState('');
-    const [users, setUsers] = useState([]); // 유저 목록 상태 추가
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         const fetchUsers = async () => {
-            const response = await fetch('/api/users'); // 유저 목록 API 호출
+            const response = await fetch('/api/users');
             if (response.ok) {
                 const data = await response.json();
-                setUsers(data); // 유저 목록 저장
+                setUsers(data);
             } else {
                 alert('유저 목록을 가져오는 데 실패했습니다.');
             }
         };
 
         fetchUsers();
-    }, []); // 컴포넌트가 마운트될 때 호출
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // 이름 중복 확인
         const isDuplicate = users.some((user) => user.name === name);
         if (isDuplicate) {
-            alert('중복된 유저 이름입니다. 다른 이름을 입력해주세요.'); // 중복 알림
-            return; // 중복 시 함수 종료
+            alert('중복된 유저 이름입니다. 다른 이름을 입력해주세요.');
+            return;
         }
 
-        // 유저 추가 API 호출
         await fetch('/api/userAdd', {
             method: 'POST',
             headers: {
@@ -39,12 +35,12 @@ export default function UserAdd() {
             body: JSON.stringify({ name }),
         });
 
-        setName(''); // 입력 필드 초기화
-        window.location.reload(); // 페이지 새로 고침
+        setName('');
+        window.location.reload();
     };
 
     const handleRefresh = () => {
-        window.location.reload(); // 새로 고침 버튼 클릭 시 페이지 새로 고침
+        window.location.reload();
     };
 
     const handleDelete = async (userId) => {
@@ -53,7 +49,14 @@ export default function UserAdd() {
         });
 
         if (response.ok) {
-            signOut({ callbackUrl: '/' }); 
+            const data = await response.json();
+            if (data.message.includes('로그아웃되었습니다.')) {
+                // 로그아웃 처리
+                await fetch('/api/auth/logout', { method: 'POST' });
+                window.location.href = '/'; // 로그아웃 후 홈으로 리디렉션
+            } else {
+                window.location.reload();
+            }
         } else {
             alert('유저 삭제에 실패했습니다.');
         }
@@ -63,11 +66,11 @@ export default function UserAdd() {
         <div>
             <h3>기존 유저</h3>
             <ul>
-                {users.map((user, index) => (
-                    <li key={index}>
+                {users.map((user) => (
+                    <li key={user._id}>
                         {user.name}
-                        <button onClick={() => handleDelete(user._id)}>삭제</button> {/* 삭제 버튼 추가 */}
-                    </li> // 유저 이름 목록 표시
+                        <button onClick={() => handleDelete(user._id)}>삭제</button>
+                    </li>
                 ))}
             </ul>
 
@@ -83,7 +86,6 @@ export default function UserAdd() {
                 <button type="submit">유저 추가</button>
             </form>
 
-            {/* 새로 고침 버튼 추가 */}
             <button onClick={handleRefresh}>전체 새로 고침</button>
         </div>
     );
