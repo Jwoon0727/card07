@@ -11,6 +11,7 @@ export default async function List() {
     <div>
         <ClientNavbar/>
     <div className="list-bg">
+    <Link href={'/userAdd'}>유저추가+</Link> 
       {user.map((a, i) => (
         <div className="list-item" key={i}>
           <Link href={'/userInformation/' + a._id}>
@@ -19,7 +20,9 @@ export default async function List() {
           <p>{user.date ? user.date : '날짜 없음'}</p>
         </div>
       ))}
+      
     </div>
+    
     </div>
   );
 }
