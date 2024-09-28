@@ -28,12 +28,13 @@ export default function ClientNavbar() {
                 </Link>
               </>
             )}
-            <Nav.Link href="/map">지도</Nav.Link>
-            <Nav.Link href="/userlist">유저</Nav.Link>
 
-            {session?.user.role !== '0' && ( // role이 0이 아닐 때만 드롭다운 표시
+            <Nav.Link href="/map">지도</Nav.Link>
+            <Nav.Link href="/userlist">구역</Nav.Link>
+
+            {status === 'authenticated' && session?.user.role !== '0' && ( // 로그인된 상태이고 role이 0이 아닐 때만 드롭다운 표시
               <NavDropdown title="더보기" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">상세페이지</NavDropdown.Item>
+                <NavDropdown.Item href="/userCard">유저관리</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
                 <NavDropdown.Divider />
