@@ -22,6 +22,13 @@ export default function UserAdd() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // 이름 중복 확인
+        const isDuplicate = users.some((user) => user.name === name);
+        if (isDuplicate) {
+            alert('중복된 유저 이름입니다. 다른 이름을 입력해주세요.'); // 중복 알림
+            return; // 중복 시 함수 종료
+        }
+
         // 유저 추가 API 호출
         await fetch('/api/userAdd', {
             method: 'POST',
