@@ -47,15 +47,15 @@ export default function UserAdd() {
         const response = await fetch(`/api/userDelete/${userId}`, {
             method: 'DELETE',
         });
-
+    
         if (response.ok) {
             const data = await response.json();
             if (data.message.includes('로그아웃되었습니다.')) {
-                // 로그아웃 처리
-                await fetch('/api/auth/logout', { method: 'POST' });
-                window.location.href = '/'; // 로그아웃 후 홈으로 리디렉션
+                // 유저 삭제 후 자동 로그아웃
+                await fetch('/api/auth/signout', { method: 'POST' }); // 로그아웃 처리
+                window.location.href = '/'; // 홈으로 리디렉션
             } else {
-                window.location.reload();
+                window.location.reload(); // 페이지 새로 고침
             }
         } else {
             alert('유저 삭제에 실패했습니다.');
