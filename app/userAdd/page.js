@@ -1,5 +1,6 @@
 'use client'; // 클라이언트 컴포넌트로 설정
 import { useState, useEffect } from 'react';
+import { signOut } from 'next-auth/react'; // NextAuth에서 signOut 가져오기
 
 export default function UserAdd() {
     const [name, setName] = useState('');
@@ -52,7 +53,7 @@ export default function UserAdd() {
         });
 
         if (response.ok) {
-            window.location.reload(); // 삭제 후 페이지 새로 고침
+            signOut({ callbackUrl: '/' }); 
         } else {
             alert('유저 삭제에 실패했습니다.');
         }
