@@ -51,8 +51,7 @@ export default function UserAdd() {
         if (response.ok) {
             const data = await response.json();
             if (data.message.includes('로그아웃되었습니다.')) {
-                // 유저 삭제 후 자동 로그아웃
-                await fetch('/api/auth/signout', { method: 'POST' }); // 로그아웃 처리
+                // 해당 유저가 삭제되었으므로, 페이지 새로 고침
                 window.location.href = '/'; // 홈으로 리디렉션
             } else {
                 window.location.reload(); // 페이지 새로 고침

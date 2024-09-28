@@ -1,12 +1,33 @@
 'use client'; // 클라이언트 컴포넌트로 설정
 
 import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
-import { useSession } from 'next-auth/react'; // useSession 훅 임포트
-import LoginBtn, { LogOutBtn } from '../LoginBtn'; // 로그인 및 로그아웃 버튼 임포트
-import Link from 'next/link'; // Link 임포트
+import { useSession } from 'next-auth/react';
+import LoginBtn, { LogOutBtn } from '../LoginBtn';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { signOut } from 'next-auth/react'; // signOut 함수 임포트
 
 export default function ClientNavbar() {
-  const { data: session, status } = useSession(); // 세션 정보와 상태 가져오기
+  const { data: session, status } = useSession();
+  const [checked, setChecked] = useState(false); // 체크 상태 추가
+
+  useEffect(() => {
+    const checkUserExists = async () => {
+      if (status === 'authenticated' && !checked) {
+        const response = await fetch('/api/checkUser');
+
+        if (response.status === 404) {
+          // 유저가 DB에 존재하지 않으면 로그아웃 처리
+          await signOut(); // next-auth의 signOut 메소드를 사용하여 로그아웃
+          window.location.href = '/'; // 홈으로 리디렉션
+        } else {
+          setChecked(true); // 체크 완료
+        }
+      }
+    };
+
+    checkUserExists();
+  }, [session, status, checked]); // checked 상태를 의존성에 추가
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -15,16 +36,15 @@ export default function ClientNavbar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            {status === 'authenticated' ? ( // 사용자가 로그인된 상태일 때
+            {status === 'authenticated' ? (
               <span>
-                {/* userName을 표시 */}
                 환영합니다, {session.user.name} <LogOutBtn />
               </span>
             ) : (
               <>
                 <LoginBtn />
                 <Link href="/register">
-                  <Button variant="outline-primary" className="ms-2">회원가입</Button> {/* 회원가입 버튼 추가 */}
+                  <Button variant="outline-primary" className="ms-2">회원가입</Button>
                 </Link>
               </>
             )}
@@ -32,7 +52,7 @@ export default function ClientNavbar() {
             <Nav.Link href="/map">지도</Nav.Link>
             <Nav.Link href="/userlist">구역</Nav.Link>
 
-            {status === 'authenticated' && session?.user.role !== '0' && ( // 로그인된 상태이고 role이 0이 아닐 때만 드롭다운 표시
+            {status === 'authenticated' && session?.user.role !== '0' && (
               <NavDropdown title="더보기" id="basic-nav-dropdown">
                 <NavDropdown.Item href="/userCard">유저관리</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
